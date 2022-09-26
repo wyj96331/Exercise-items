@@ -104,10 +104,40 @@ export const reqUpdateCheckCart = (skuId, isChecked) => {
   })
 }
 
-// 获取验证码
+/**
+ *获取验证码
+ * @param {手机号码} phone
+ * @returns Promise
+ */
 export const reqGetCode = (phone) => {
   return request({
     url: `/user/passport/sendCode/${phone}`,
     method: 'GET'
+  })
+}
+
+/**
+ *用户注册
+ * @param {{手机号,密码,验证码}} data
+ * @returns Promise
+ */
+export const reqUserRegister = (data) => {
+  return request({
+    url: '/user/passport/register',
+    method: 'POST',
+    data
+  })
+}
+
+/**
+ *用户登录
+ * @param {{手机号,密码}} data
+ * @returns Promise
+ */
+export const reqUserLogin = (data) => {
+  return request({
+    url: '/user/passport/login',
+    method: 'POST',
+    data
   })
 }
