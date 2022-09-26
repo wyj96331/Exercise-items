@@ -103,3 +103,11 @@ export const reqUpdateCheckCart = (skuId, isChecked) => {
     method: 'GET'
   })
 }
+
+// 获取验证码
+export const reqGetCode = (phone) => {
+  return request({
+    url: `/user/passport/sendCode/${phone}`,
+    method: 'GET'
+  })
+}
