@@ -176,7 +176,7 @@ export default {
     },
     // 修改全部商品勾选状态
     async isCheckedAll (event) {
-      console.log(event.target.checked)
+      // 获取全选框的状态并将其(true/false)转化为数字(1/0)
       const isChecked = event.target.checked ? '1' : '0'
       try {
         await this.$store.dispatch('isCheckedAll', isChecked)
