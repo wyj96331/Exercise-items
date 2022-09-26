@@ -25,6 +25,7 @@ export default {
       immediate: true,
       handler () {
         this.$nextTick(() => {
+          // eslint-disable-next-line no-unused-vars
           const mySwiper = new Swiper(this.$refs.mySwiper, {
             loop: true, // 循环模式选项
             // 如果需要分页器
@@ -44,7 +45,6 @@ export default {
               el: '.swiper-scrollbar'
             }
           })
-          console.log(mySwiper)
         })
       }
     }

@@ -18,6 +18,10 @@ myAxios.interceptors.request.use(config => {
   if (store.state.detail.uuid_token) {
     config.headers.userTempId = store.state.detail.uuid_token
   }
+  // 需要携带token值给服务器
+  if (store.state.user.token) {
+    config.headers.token = store.state.user.token
+  }
   return config
 })
 // 响应拦截器

@@ -141,3 +141,14 @@ export const reqUserLogin = (data) => {
     data
   })
 }
+
+/**
+ * 获取用户信息(请求头携带token)
+ * @returns Promise
+ */
+export const reqGetUserInfo = () => {
+  return request({
+    url: '/user/passport/auth/getUserInfo',
+    method: 'GET'
+  })
+}

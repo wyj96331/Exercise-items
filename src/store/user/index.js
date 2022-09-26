@@ -1,12 +1,24 @@
-import { reqGetCode, reqUserRegister, reqUserLogin } from '@/api'
+import { reqGetCode, reqUserRegister, reqUserLogin, reqGetUserInfo } from '@/api'
+// import { Message } from 'element-ui'
 export default {
   state: {
-    code: ''
+    code: '',
+    token: '',
+    userInfo: {}
   },
   getters: {},
   mutations: {
+    // 获取验证码
     GETCODE (state, code) {
       state.code = code
+    },
+    // 获取token
+    GETTOKEN (state, token) {
+      state.token = token
+    },
+    // 获取用户信息
+    GETUSERINFO (state, userInfo) {
+      state.userInfo = userInfo
     }
   },
   actions: {
@@ -23,17 +35,28 @@ export default {
     // 用户注册
     async userRegister ({ commit }, user) {
       const { data: res } = await reqUserRegister(user)
-      console.log(res.message)
       if (res.code === 200) {
         return 'ok'
       } else {
-        return Promise.reject(new Error('falie'))
+        return Promise.reject(new Error(res.message))
       }
     },
-    // 用户登录
+    // 用户登录，获取token
     async userLogin ({ commit }, data) {
       const { data: res } = await reqUserLogin(data)
-      console.log(res)
+      if (res.code === 200) {
+        commit('GETTOKEN', res.data.token)
+        return 'ok'
+      } else {
+        return Promise.reject(new Error(res.message))
+      }
+    },
+    // 获取用户信息
+    async getUserInfo ({ commit }) {
+      const { data: res } = await reqGetUserInfo()
+      if (res.code === 200) {
+        commit('GETUSERINFO', res.data)
+      }
     }
   }
 }

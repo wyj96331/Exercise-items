@@ -86,9 +86,11 @@ export default {
     }
   },
   methods: {
+    // 用户登录
     async userLogin () {
       const { phone, password } = this
       phone && password && await this.$store.dispatch('userLogin', { phone, password })
+        .then(() => { this.$router.push('/home') }, error => { alert(error.message) })
     }
   }
 }
