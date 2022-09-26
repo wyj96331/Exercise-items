@@ -37,6 +37,30 @@ export default {
       } else {
         return Promise.reject(new Error('faile'))
       }
+    },
+    // 删除选中状态的商品
+    deleteCheckedAll ({ dispatch, getters }) {
+      const PromiseAll = []
+      getters.cartList.cartInfoList.forEach(item => {
+        // 三元表达式写法
+        const promise = item.isChecked === 1 ? dispatch('deleteShopCartLis', item.skuId) : ''
+        PromiseAll.push(promise)
+        // if表达式写法
+        // if (item.isChecked === 1) {
+        //   const promise = dispatch('deleteShopCartLis', item.skuId)
+        //   PromiseAll.push(promise)
+        // }
+      })
+      return Promise.all(PromiseAll)
+    },
+    // 修改全部商品勾选状态
+    isCheckedAll ({ dispatch, getters }, isChecked) {
+      const PromiseAll = []
+      getters.cartList.cartInfoList.forEach(item => {
+        const promise = dispatch('upDateShopCart', { skuId: item.skuId, isChecked })
+        PromiseAll.push(promise)
+      })
+      return Promise.all(PromiseAll)
     }
   }
 
