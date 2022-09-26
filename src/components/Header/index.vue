@@ -15,7 +15,7 @@
             </p>
             <p v-else>
               <a>{{ userName }}</a>
-              <a class="register">退出登录</a>
+              <a class="register" @click="logout">退出登录</a>
             </p>
           </div>
 
@@ -57,6 +57,21 @@
         </div>
       </div>
     </header>
+    <!-- dialog对话框 -->
+    <el-dialog
+      title="提示"
+      :visible.sync="dialogVisible"
+      width="20%"
+      :before-close="handleClose"
+    >
+      <span>是否退出登录</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false" type="danger"
+          >取 消</el-button
+        >
+        <el-button type="primary" @click="userLogout">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -65,7 +80,9 @@ export default {
   name: 'MyTest',
   data () {
     return {
-      keyword: ''
+      keyword: '',
+      // 控制dialog对话框true显示/false隐藏
+      dialogVisible: false
     }
   },
   methods: {
@@ -76,6 +93,29 @@ export default {
         location.query = this.$route.query
         this.$router.push(location)
       }
+    },
+    // 退出登录
+    logout () {
+      // 控制dialog对话框是否显示的函数
+      if (this.dialogVisible) {
+        this.dialogVisible = false
+      } else {
+        this.dialogVisible = true
+      }
+    },
+    // 控制dialog对话框的关闭还是继续展示(二级对话框)
+    handleClose (done) {
+      this.$confirm('确认关闭？')
+        .then(_ => {
+          done()
+        })
+        .catch(_ => {})
+    },
+    // 对话框退出登录并且隐藏
+    async userLogout () {
+      this.dialogVisible = false
+      await this.$store.dispatch('userLoguot')
+        .then(() => { this.$router.push('/home') }, error => { this.$message.error(error) })
     }
   },
   mounted () {

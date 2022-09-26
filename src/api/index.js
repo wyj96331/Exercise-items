@@ -152,3 +152,14 @@ export const reqGetUserInfo = () => {
     method: 'GET'
   })
 }
+
+/**
+ * 退出登录
+ * @returns Promise
+ */
+export const reqLogout = () => {
+  return request({
+    url: '/user/passport/logout',
+    method: 'GET'
+  })
+}
