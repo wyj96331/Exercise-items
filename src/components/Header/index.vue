@@ -115,7 +115,7 @@ export default {
     async userLogout () {
       this.dialogVisible = false
       await this.$store.dispatch('userLoguot')
-        .then(() => { this.$router.push('/home') }, error => { this.$message.error(error) })
+        .then(() => { this.$router.push('/home') }, error => { this.$message.error(error.message) })
     }
   },
   mounted () {

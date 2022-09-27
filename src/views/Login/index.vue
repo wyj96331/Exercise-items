@@ -89,8 +89,14 @@ export default {
     // 用户登录
     async userLogin () {
       const { phone, password } = this
-      phone && password && await this.$store.dispatch('userLogin', { phone, password })
-        .then(() => { this.$router.push('/home') }, error => { alert(error.message) })
+      // phone && password && await this.$store.dispatch('userLogin', { phone, password })
+      //   .then(() => { this.$router.push('/home') }, error => { alert(error.message) })
+      try {
+        phone && password && await this.$store.dispatch('userLogin', { phone, password })
+        this.$router.push('/home')
+      } catch (error) {
+        this.$message.error(error.message)
+      }
     }
   }
 }
