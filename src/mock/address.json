@@ -1,0 +1,46 @@
+[
+  {
+    "consignee": "小王",
+    "fullAddress": "武汉市汉口区",
+    "id": 2250,
+    "isDefault": 0,
+    "phoneNum": 15959555661,
+    "provinceId": 6,
+    "regionId": 26,
+    "userAddress": "武汉市汉口区",
+    "userId": 9
+  },
+  {
+    "consignee": "小李",
+    "fullAddress": "上海浦东开发区",
+    "id": 2200,
+    "isDefault": 0,
+    "phoneNum": 15959542321,
+    "provinceId": 6,
+    "regionId": 42,
+    "userAddress": "上海浦东开发区",
+    "userId": 8
+  },
+  {
+    "consignee": "小红",
+    "fullAddress": "广州白云",
+    "id": 2221,
+    "isDefault": 0,
+    "phoneNum": 15959555551,
+    "provinceId": 16,
+    "regionId": 22,
+    "userAddress": "广州白云",
+    "userId": 7
+  },
+  {
+    "consignee": "小明",
+    "fullAddress": "上海徐汇区",
+    "id": 2258,
+    "isDefault": 0,
+    "phoneNum": 15959555253,
+    "provinceId": 61,
+    "regionId": 21,
+    "userAddress": "上海徐汇区",
+    "userId": 6
+  }
+]

@@ -34,7 +34,7 @@ export const reqGetFloorList = () => {
 
 /**
  *获取搜索列表
- * @param {params} params
+ * @param {*} params
  * @returns Promise
  */
 export const reqGetSearchInfo = (params) => {
@@ -46,7 +46,7 @@ export const reqGetSearchInfo = (params) => {
 }
 /**
  *获取商品详情信息
- * @param {skuId} skuId
+ * @param {*} skuId
  * @returns Promise
  */
 export const reqGoodsInfo = (skuId) => {
@@ -57,8 +57,8 @@ export const reqGoodsInfo = (skuId) => {
 }
 /**
  *添加商品到购物车API
- * @param {商品id} skuId
- * @param {商品数量} skuNum
+ * @param {*} skuId
+ * @param {*} skuNum
  * @returns Promise
  */
 export const reqAddorUpdateShopCar = (skuId, skuNum) => {
@@ -81,7 +81,7 @@ export const reqShopCartList = () => {
 
 /**
  * 删除购物车商品信息
- * @param {商品id} skuId
+ * @param {*} skuId
  * @returns Promise
  */
 export const deleteGoodsInfo = (skuId) => {
@@ -93,8 +93,8 @@ export const deleteGoodsInfo = (skuId) => {
 
 /**
  *切换商品选中状态
- * @param {商品id} skuID
- * @param {商品选中状态} isChecked
+ * @param {*} skuID
+ * @param {*} isChecked
  * @returns Promise
  */
 export const reqUpdateCheckCart = (skuId, isChecked) => {
@@ -106,7 +106,7 @@ export const reqUpdateCheckCart = (skuId, isChecked) => {
 
 /**
  *获取验证码
- * @param {手机号码} phone
+ * @param {*} phone
  * @returns Promise
  */
 export const reqGetCode = (phone) => {
@@ -118,7 +118,7 @@ export const reqGetCode = (phone) => {
 
 /**
  *用户注册
- * @param {{手机号,密码,验证码}} data
+ * @param {*} data
  * @returns Promise
  */
 export const reqUserRegister = (data) => {
@@ -131,7 +131,7 @@ export const reqUserRegister = (data) => {
 
 /**
  *用户登录
- * @param {{手机号,密码}} data
+ * @param {*} data
  * @returns Promise
  */
 export const reqUserLogin = (data) => {
@@ -159,7 +159,67 @@ export const reqGetUserInfo = () => {
  */
 export const reqLogout = () => {
   return request({
-    url: '/user/passport/logout',
+    url: '/orderInfo',
+    method: 'GET'
+  })
+}
+
+/**
+ * 获取用户地址信息
+ * @returns Promise
+ */
+export const reqGetUserAddress = () => {
+  return mockRequest({
+    url: '/address',
+    method: 'GET'
+  })
+}
+
+/**
+ * 获取订单交易页信息(老师的接口有问题自己moke了一个) /order/auth/trade
+ * @returns Promise
+ */
+export const reqGetOrderInfo = () => {
+  return mockRequest({
+    url: '/orderInfo',
+    method: 'GET'
+  })
+}
+
+/**
+ * 提交订单
+ * @param {*} tradeNo
+ * @param {*} data
+ * @returns
+ */
+export const reqSubmitOrder = (tradeNo, data) => {
+  return request({
+    url: `/order/auth/submitOrder?tradeNo=${tradeNo}`,
+    method: 'POST',
+    data
+  })
+}
+
+/**
+ * 获取订单支付信息
+ * @param {*} orderId
+ * @returns
+ */
+export const reqPayInfo = (orderId) => {
+  return request({
+    url: `/payment/weixin/createNative/${orderId}`,
+    method: 'GET'
+  })
+}
+
+/**
+ * 查询订单状态
+ * @param {*} orderId
+ * @returns
+ */
+export const reqPayStatus = (orderId) => {
+  return request({
+    url: `/payment/weixin/queryPayStatus/${orderId}`,
     method: 'GET'
   })
 }

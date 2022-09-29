@@ -80,8 +80,8 @@
         <input
           class="chooseAll"
           type="checkbox"
-          :checked="isAllChecked && cartInfoList.lenth > 0"
-          @change="isCheckedAll"
+          :checked="isAllChecked"
+          @change="isCheckedAll($event)"
         />
         <span>全选</span>
       </div>
@@ -97,7 +97,9 @@
           <i class="summoney">{{ totalPrice }}</i>
         </div>
         <div class="sumbtn">
-          <a class="sum-btn" href="###" target="_blank">结算</a>
+          <a class="sum-btn" target="_blank" @click="$router.push('/trade')"
+            >结算</a
+          >
         </div>
       </div>
     </div>
@@ -110,6 +112,11 @@ import { mapGetters } from 'vuex'
 import throttle from 'lodash/throttle'
 export default {
   name: 'ShopCart',
+  data () {
+    return {
+      checked: ''
+    }
+  },
   mounted () {
     this.getData()
   },

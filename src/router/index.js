@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
+import store from '@/store'
+import { Message } from 'element-ui'
 Vue.use(VueRouter)
 // 先把VueRouter原型对象保存
 const originPush = VueRouter.prototype.push
@@ -26,6 +27,46 @@ const routes = [
     path: '/',
     component: () => import('@/views/Home'),
     redirect: '/home'
+  },
+  {
+    path: '/trade',
+    component: () => import('@/views/Trade'),
+    meta: {
+      show: true
+    }
+  },
+  {
+    path: '/pay',
+    component: () => import('@/views/Pay'),
+    meta: {
+      show: true
+    }
+  },
+  {
+    path: '/paysuccess',
+    component: () => import('@/views/PaySuccess'),
+    meta: {
+      show: true
+    }
+  },
+  {
+    path: '/center',
+    redirect: '/center/myorder',
+    component: () => import('@/views/Center'),
+    meta: {
+      show: true
+    },
+    // 二级路由
+    children: [
+      {
+        path: 'myorder',
+        component: () => import('@/views/Center/MyOrder')
+      },
+      {
+        path: 'grouporder',
+        component: () => import('@/views/Center/GroupOrder')
+      }
+    ]
   },
   {
     path: '/home',
@@ -89,4 +130,43 @@ const router = new VueRouter({
   }
 })
 
+// 全局守卫:前置守卫(再路由跳转之前判断)
+router.beforeEach(async (to, from, next) => {
+  const token = store.state.user.token
+  const name = store.state.user.userInfo.name
+  if (token) {
+    // 登录
+    if (to.path === '/login') {
+      // 因为已经登录所以不能去login给它强制专跳到home
+      Message.warning('您已经登录')
+      next('/home')
+    } else {
+      // 登录了 转跳其他路由 却没有用户信息 这里要重新获取用户信息
+      // 获取用户信息
+      if (name) {
+        next()
+      } else {
+        await store.dispatch('getUserInfo').then(
+          resolve => {
+            next()
+          }, reject => {
+            // token失效，退出登录，清除本地数据
+            store.dispatch('userLoguot')
+            Message.error('token失效请重新登录')
+            next('/login')
+          })
+
+        next()
+      }
+    }
+  } else {
+    // 未登录
+    if (to.path === '/trade') {
+      next('/login')
+      Message.error('请登录您的账号')
+      Message.error('token失效请重新登录')
+    }
+    next()
+  }
+})
 export default router

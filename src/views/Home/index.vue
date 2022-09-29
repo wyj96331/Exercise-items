@@ -38,8 +38,7 @@ export default {
   mounted () {
     // 获取首页商品信息
     this.$store.dispatch('getFloorList')
-    // 获取用户信息
-    this.$store.dispatch('getUserInfo')
+    // this.$store.dispatch('getUserInfo')
   }
 }
 </script>

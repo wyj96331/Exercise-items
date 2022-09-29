@@ -99,7 +99,9 @@ export default {
     // 用户注册
     async userRegister () {
       const { phone, code, password, repassword } = this
-      phone && code && password === repassword && await this.$store.dispatch('userRegister', { phone, code, password }).then(() => { this.$router.push('/login') }, error => { alert(error.message) })
+      phone && code && password === repassword &&
+        await this.$store.dispatch('userRegister', { phone, code, password })
+          .then(() => { this.$router.push('/login') }, error => { alert(error.message) })
     }
   }
 }

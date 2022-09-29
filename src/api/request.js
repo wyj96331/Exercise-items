@@ -10,6 +10,7 @@ const myAxios = axios.create({
   baseURL: '/api',
   timeout: 5000// 响应时间5秒
 })
+
 // 请求拦截器
 myAxios.interceptors.request.use(config => {
   // config:配置对象，里面有headers请求头
@@ -24,6 +25,7 @@ myAxios.interceptors.request.use(config => {
   }
   return config
 })
+
 // 响应拦截器
 myAxios.interceptors.response.use(response => {
   // 进度条结束
